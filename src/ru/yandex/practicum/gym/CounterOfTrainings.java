@@ -8,12 +8,12 @@ public class CounterOfTrainings {
     public int i;
     HashMap<Coach, Integer> countOfTrainings = new HashMap<>();
 
-    public HashMap<Coach, Integer> counter(Timetable timetable){
+    public HashMap<Coach, Integer> counter(Timetable timetable) {
         i = 1;
-        for (TreeMap<TimeOfDay, List<TrainingSession>> day: timetable.getTimetable().values()){
-            for (List<TrainingSession> time: day.values()){
-                for (TrainingSession trainig: time){
-                    if (!countOfTrainings.containsKey(trainig.getCoach())){
+        for (TreeMap<TimeOfDay, List<TrainingSession>> day: timetable.getTimetable().values()) {
+            for (List<TrainingSession> time: day.values()) {
+                for (TrainingSession trainig: time) {
+                    if (!countOfTrainings.containsKey(trainig.getCoach())) {
                         countOfTrainings.put(trainig.getCoach(), i);
                     } else {
                         countOfTrainings.put(trainig.getCoach(), (countOfTrainings.get(trainig.getCoach())) + 1);
