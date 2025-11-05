@@ -2,15 +2,11 @@ package ru.yandex.practicum.gym;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 public class CounterOfTrainings {
     public int i;
-
     HashMap<Coach, Integer> countOfTrainings = new HashMap<>();
-
-
 
     public HashMap<Coach, Integer> counter(Timetable timetable){
         i = 1;
@@ -22,12 +18,9 @@ public class CounterOfTrainings {
                     } else {
                         countOfTrainings.put(trainig.getCoach(), (countOfTrainings.get(trainig.getCoach())) + 1);
                     }
-
                 }
             }
         }
-
         return countOfTrainings;
     }
 }
-
