@@ -6,7 +6,7 @@ public class Timetable {
 
     private Map<DayOfWeek, TreeMap<TimeOfDay, List<TrainingSession>>> timetable = new HashMap<>();
 
-    public Map<DayOfWeek, TreeMap<TimeOfDay, List<TrainingSession>>> getTimetable(){
+    public Map<DayOfWeek, TreeMap<TimeOfDay, List<TrainingSession>>> getTimetable() {
         return timetable;
     }
     ///* как это хранить??? */ timetable
@@ -15,12 +15,12 @@ public class Timetable {
         //сохраняем занятие в расписании
         DayOfWeek day = trainingSession.getDayOfWeek();
         TimeOfDay hours = trainingSession.getTimeOfDay();
-        if (!timetable.containsKey(day)){
+        if (!timetable.containsKey(day)) {
             timetable.put(day, new TreeMap<>());
         }
 
         TreeMap<TimeOfDay, List<TrainingSession>> houtTable = timetable.get(day);
-        if (!houtTable.containsKey(hours)){
+        if (!houtTable.containsKey(hours)) {
             houtTable.put(hours, new ArrayList<>());
         }
 
@@ -28,7 +28,7 @@ public class Timetable {
         trainings.add(trainingSession);
     }
 
-    public TreeMap<TimeOfDay, List<TrainingSession>>/* непонятно, что возвращать */ getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
+    public TreeMap<TimeOfDay, List<TrainingSession> >/* непонятно, что возвращать */ getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
         //как реализовать, тоже непонятно, но сложность должна быть О(1)
         return timetable.getOrDefault(dayOfWeek, new TreeMap<>());
     }
@@ -49,7 +49,7 @@ public class Timetable {
         return sortedMap;
     }
 
-    public HashMap<Coach, Integer> sortCountByCoaches(HashMap<Coach, Integer> unsorted){
+    public HashMap<Coach, Integer> sortCountByCoaches(HashMap<Coach, Integer> unsorted) {
         List<Map.Entry<Coach, Integer>> sortedList = new ArrayList<>(unsorted.entrySet());
 
         Collections.sort(sortedList, new Comparator<Map.Entry<Coach, Integer>>() {
