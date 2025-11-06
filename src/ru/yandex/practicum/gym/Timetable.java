@@ -28,7 +28,7 @@ public class Timetable {
         trainings.add(trainingSession);
     }
 
-    public TreeMap<TimeOfDay, List<TrainingSession >> getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
+    public TreeMap<TimeOfDay, List<TrainingSession>> getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
         //как реализовать, тоже непонятно, но сложность должна быть О(1)
         return timetable.getOrDefault(dayOfWeek, new TreeMap<>());
     }
