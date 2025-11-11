@@ -80,17 +80,21 @@ public class TimetableTest {
         timetable.addNewTrainingSession(singleTrainingSession1);
 
         //Проверить, что за понедельник в 13:00 вернулось одно занятие
-        ArrayList<TrainingSession> testList = new ArrayList<>();
-        testList.addAll(timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(13, 0)).get(new TimeOfDay(13, 0)));
+        List<TrainingSession> testList = new ArrayList<>();
+        List<TrainingSession> sessions = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        if (sessions != null) {
+            testList.addAll(sessions);
+        }
         Assertions.assertEquals(2, testList.size());
 
         //Проверить, что за понедельник в 14:00 не вернулось занятий
-        ArrayList<TrainingSession> testList1 = new ArrayList<>();
+        List<TrainingSession> testList1 = new ArrayList<>();
+        List<TrainingSession> sessions1 = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(14, 0));
 
-        List<TrainingSession> sessions1 = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(14, 0)).get(new TimeOfDay(14, 0));
         if (sessions1 != null) {
             testList1.addAll(sessions1);
         }
+
         Assertions.assertEquals(0, testList1.size());
     }
 
@@ -131,7 +135,7 @@ public class TimetableTest {
     }
 
     @Test
-    void testSortedCountOfTrainings() {
+    void testGetCountOfTrainings() {
         Timetable timetable = new Timetable();
 
         Group group = new Group("Акробатика для детей", Age.CHILD, 60);
@@ -161,7 +165,7 @@ public class TimetableTest {
 
         CounterOfTrainings countOf = new CounterOfTrainings();
         HashMap<Coach, Integer> test = countOf.counter(timetable);
-        timetable.sortCountByCoaches(test);
+        timetable.getCountByCoaches(test);
 
         ArrayList<Integer> expectedResult = new ArrayList();
         expectedResult.add(0,3);
@@ -178,6 +182,8 @@ public class TimetableTest {
         }
 
         Assertions.assertTrue(isDescending, "Порядок значений не является убывающим: " + values);
+        Assertions.assertEquals(3, test.get(coach));
+        Assertions.assertEquals(1, test.get(coach2));
     }
 
 }

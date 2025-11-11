@@ -9,7 +9,6 @@ public class Timetable {
     public Map<DayOfWeek, TreeMap<TimeOfDay, List<TrainingSession>>> getTimetable() {
         return timetable;
     }
-    ///* как это хранить??? */ timetable
 
     public void addNewTrainingSession(TrainingSession trainingSession) {
         //сохраняем занятие в расписании
@@ -29,27 +28,21 @@ public class Timetable {
     }
 
     public TreeMap<TimeOfDay, List<TrainingSession>> getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
-        //как реализовать, тоже непонятно, но сложность должна быть О(1)
         return timetable.getOrDefault(dayOfWeek, new TreeMap<>());
     }
 
-    public TreeMap<TimeOfDay, List<TrainingSession>> getTrainingSessionsForDayAndTime(DayOfWeek dayOfWeek, TimeOfDay timeOfDay) {
-        //как реализовать, тоже непонятно, но сложность должна быть О(1)
+    public List<TrainingSession> getTrainingSessionsForDayAndTime(DayOfWeek dayOfWeek, TimeOfDay timeOfDay) {
         TreeMap<TimeOfDay, List<TrainingSession>> daySchedule = timetable.get(dayOfWeek);
 
         if (daySchedule == null) {
-            return new TreeMap<>();
+            return new ArrayList<>();
         }
 
-        TreeMap<TimeOfDay, List<TrainingSession>> sortedMap = new TreeMap<>();
-
-        for (TimeOfDay time : daySchedule.navigableKeySet().tailSet(timeOfDay)) {
-            sortedMap.put(time, daySchedule.get(time));
-        }
-        return sortedMap;
+        List<TrainingSession> resultList = daySchedule.get(timeOfDay);
+        return resultList;
     }
 
-    public HashMap<Coach, Integer> sortCountByCoaches(HashMap<Coach, Integer> unsorted) {
+    public List<Map.Entry<Coach, Integer>> getCountByCoaches(HashMap<Coach, Integer> unsorted) {
         List<Map.Entry<Coach, Integer>> sortedList = new ArrayList<>(unsorted.entrySet());
 
         Collections.sort(sortedList, new Comparator<Map.Entry<Coach, Integer>>() {
@@ -58,14 +51,7 @@ public class Timetable {
                 return o2.getValue().compareTo(o1.getValue());
             }
         });
-
-
-        HashMap<Coach, Integer> sorted = new HashMap<>();
-        for (Map.Entry<Coach, Integer> entry : sortedList) {
-            sorted.put(entry.getKey(), entry.getValue());
-        }
-        return sorted;
+        return sortedList;
     }
-
 }
 
