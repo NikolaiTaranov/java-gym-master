@@ -42,16 +42,26 @@ public class Timetable {
         return resultList;
     }
 
-    public List<Map.Entry<Coach, Integer>> getCountByCoaches(HashMap<Coach, Integer> unsorted) {
-        List<Map.Entry<Coach, Integer>> sortedList = new ArrayList<>(unsorted.entrySet());
+    public Map<Coach, Integer> getCountByCoaches() {
+        Map<Coach, Integer> countForCoach;
+        CounterOfTrainings counterOfTrainings = new CounterOfTrainings();
+        countForCoach = counterOfTrainings.counter(timetable);
 
-        Collections.sort(sortedList, new Comparator<Map.Entry<Coach, Integer>>() {
+        List<Map.Entry<Coach, Integer>> entries = new ArrayList<>(countForCoach.entrySet());
+
+        Collections.sort(entries, new Comparator<Map.Entry<Coach, Integer>>() {
             @Override
             public int compare(Map.Entry<Coach, Integer> o1, Map.Entry<Coach, Integer> o2) {
                 return o2.getValue().compareTo(o1.getValue());
             }
         });
-        return sortedList;
+
+        Map<Coach, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<Coach, Integer> entry : entries) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
     }
 }
 

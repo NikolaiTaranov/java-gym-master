@@ -2,15 +2,16 @@ package ru.yandex.practicum.gym;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class CounterOfTrainings {
     public int i;
     HashMap<Coach, Integer> countOfTrainings = new HashMap<>();
 
-    public HashMap<Coach, Integer> counter(Timetable timetable) {
+    public HashMap<Coach, Integer> counter(Map<DayOfWeek, TreeMap<TimeOfDay, List<TrainingSession>>> timetable) {
         i = 1;
-        for (TreeMap<TimeOfDay, List<TrainingSession>> day: timetable.getTimetable().values()) {
+        for (TreeMap<TimeOfDay, List<TrainingSession>> day: timetable.values()) {
             for (List<TrainingSession> time: day.values()) {
                 for (TrainingSession trainig: time) {
                     if (!countOfTrainings.containsKey(trainig.getCoach())) {

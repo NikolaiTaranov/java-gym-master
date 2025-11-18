@@ -127,8 +127,7 @@ public class TimetableTest {
         timetable.addNewTrainingSession(singleTrainingSession2);
         timetable.addNewTrainingSession(singleTrainingSession3);
 
-        CounterOfTrainings countOf = new CounterOfTrainings();
-        HashMap<Coach, Integer> test = countOf.counter(timetable);
+        Map<Coach, Integer> test = timetable.getCountByCoaches();
 
         Assertions.assertEquals(3, test.get(new Coach("Васильев", "Николай", "Сергеевич")));
         Assertions.assertEquals(1, test.get(new Coach("Васильев2", "Николай2", "Сергеевич2")));
@@ -163,17 +162,11 @@ public class TimetableTest {
         timetable.addNewTrainingSession(singleTrainingSession2);
         timetable.addNewTrainingSession(singleTrainingSession3);
 
-        CounterOfTrainings countOf = new CounterOfTrainings();
-        HashMap<Coach, Integer> test = countOf.counter(timetable);
-        timetable.getCountByCoaches(test);
-
-        ArrayList<Integer> expectedResult = new ArrayList();
-        expectedResult.add(0,3);
-        expectedResult.add(1,1);
+        Map<Coach, Integer> actualMap = timetable.getCountByCoaches();
 
         boolean isDescending = true;
 
-        ArrayList<Integer> values = new ArrayList<>(test.values());
+        ArrayList<Integer> values = new ArrayList<>(actualMap.values());
         for (int i = 0; i < values.size() - 1; i++) {
             if (values.get(i) < values.get(i + 1)) {
                 isDescending = false;
@@ -182,8 +175,8 @@ public class TimetableTest {
         }
 
         Assertions.assertTrue(isDescending, "Порядок значений не является убывающим: " + values);
-        Assertions.assertEquals(3, test.get(coach));
-        Assertions.assertEquals(1, test.get(coach2));
+        Assertions.assertEquals(3, actualMap.get(coach));
+        Assertions.assertEquals(1, actualMap.get(coach2));
     }
 
 }
